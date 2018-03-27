@@ -1,0 +1,5 @@
+__pycache__/**
+Decomposition/**
+*.html
+*.ipynb_checkpoints
+
