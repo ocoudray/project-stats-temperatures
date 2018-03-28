@@ -74,7 +74,7 @@ class BuysBallotModel():
         '''
         return np.copy(np.dot(self.G, self.beta))
     
-    def plot_decomposition(self, data, easting, northing, n_points = 1000, plot = True):
+    def plot_decomposition(self, data, easting, northing, n_points = 1000, plot = True, save = True):
         '''
         Plot the decomposition after fitting the model on data
         Parameters :
@@ -85,11 +85,14 @@ class BuysBallotModel():
         data = list(data)
         self.fit(data)
         trend = self.get_trend()
-        pd.Series(trend).to_csv("Decomposition/Trend/BB"+easting+"-"+northing+".csv")
+        if save:
+            pd.Series(trend).to_csv("Decomposition/Trend/BB"+easting+"-"+northing+".csv")
         seasons = self.get_seasonalities()
-        pd.Series(seasons).to_csv("Decomposition/Seasons/BB"+easting+"-"+northing+".csv")
+        if save:
+            pd.Series(seasons).to_csv("Decomposition/Seasons/BB"+easting+"-"+northing+".csv")
         noise = data - trend - seasons
-        pd.Series(noise).to_csv("Decomposition/Noise/BB"+easting+"-"+northing+".csv")
+        if save:
+            pd.Series(noise).to_csv("Decomposition/Noise/BB"+easting+"-"+northing+".csv")
 
         if plot:
             plt.figure(figsize=(20,20))
